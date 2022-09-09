@@ -13,15 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function ()
-{
-    \App\Actions\FillTable::run();
-    return view('welcome', [
-        'items' => \App\Actions\GetItems::run()
-    ]);
-})->name('home');
+Route::get('/', [\App\Http\Controllers\LoadMoreController::class, 'index']);
 
-//Route::get('/seed-table', function (){
-//    \App\Actions\FillTable::run();
-//    return redirect(\route('home'));
-//})->name('seed-table');
+Route::post('load-data', [\App\Http\Controllers\LoadMoreController::class, 'loadMoreData'])->name('load-data');
